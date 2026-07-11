@@ -1,4 +1,4 @@
-# Developer Journal - [Project Name]
+# Developer Journal - [Coverage Project]
 
 ## [2026-07-02] - Team Session
 - We made the first commit to the code, where the robot now goes to the corner and starts the coverage in L shapes across the room.
