@@ -31,6 +31,9 @@ def avoid_obstacle():
     robot.turn(-93)
     while True:
         robot.straight(100)
+        if line_sensor.color() == border_color:
+            robot.stop()
+            return
         robot.turn(-93)
         if obstacle_sensor.distance() > DISTANCE_THRESHOLD:
             break
