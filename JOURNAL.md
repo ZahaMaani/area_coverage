@@ -12,3 +12,8 @@ Next Step: have the robot detect that it has covered the enitre room and stop.
 - For the L shape coverage, basic obstacle avoidance is done. 
 
 Next step: make sure that the robot does not get outside of the border while it is avoiding the obstacle. 
+
+---
+## [2026-07-11] - Team Session
+- Tackled obstacle avoidance problem
+- Added plotting of the covered area using matplotlib
