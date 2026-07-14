@@ -80,7 +80,7 @@ def run_coverage():
             task_finished = True     
         
         else:    
-            robot.turn(93 * direction)
+            robot.turn(100 * direction)
             direction *= -1
             
     ev3.speaker.beep()
