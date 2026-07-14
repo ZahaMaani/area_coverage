@@ -19,7 +19,7 @@ def find_corner():
         robot.drive(150, 0)
         if line_sensor.color() == border_color: 
             robot.stop()
-            robot.turn(-93)
+            robot.turn(-100)
             i += 1
     ev3.speaker.beep()
 
@@ -33,7 +33,7 @@ def measure_room():
     
     # Reposition for Height
     robot.straight(-10) # Back up slightly
-    robot.turn(-93)
+    robot.turn(-100)
     
     # Measure Height
     robot.reset()
@@ -48,7 +48,7 @@ def measure_room():
 def run_inward_spiral():
     find_corner()
     height, width = measure_room()
-    robot.turn(-93)
+    robot.turn(-100)
 
     area = height * width
     width -=20
@@ -56,11 +56,11 @@ def run_inward_spiral():
     while area > 0:
         if counter % 2 == 0:
             robot.straight(width)
-            width -= 160
+            width -= 130
         else:
-            height -= 160
+            height -= 130
             robot.straight(height)
-        robot.turn(-93)
+        robot.turn(-100)
         area = height * width
         counter += 1  
 
