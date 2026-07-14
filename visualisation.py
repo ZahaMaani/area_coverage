@@ -21,13 +21,12 @@ def log_position():
     log_file.write("{},{}\n".format(robot.distance(), robot.angle()))
 
 def logged_turn(angle):
-    """Turns the robot while continuously logging its position."""
-    # Reset relative angle for this turn
+    """Turns the robot at a steady medium speed while continuously logging."""
     target_angle = robot.angle() + angle
-    # Turn slowly while logging
     direction = 1 if angle > 0 else -1
+    # Turning at a steady 80 deg/s
     while (direction == 1 and robot.angle() < target_angle) or (direction == -1 and robot.angle() > target_angle):
-        robot.drive(0, direction * 40) # Turn rate deg/s
+        robot.drive(0, direction * 80) 
         log_position()
         wait(20)
     robot.stop()
@@ -48,23 +47,38 @@ def find_corner():
         robot.drive(150, 0)
         if line_sensor.color() == border_color: 
             robot.stop()
-            # Use standard turn here because we don't care about mapping the setup phase
-            robot.turn(-90)
+            # Standard turn is fine here as we don't log setup phase
+            robot.turn(-100) 
             i += 1
 
 def avoid_obstacle():
     robot.stop()
-    logged_turn(90)
+    logged_turn(100)
     logged_straight(100)
-    logged_turn(-90)
+    logged_turn(-100)
     while True:
-        logged_straight(100)
-        logged_turn(-90)
+        start_dist = robot.distance()
+        hit_border_during_evasion = False
+        
+        while (robot.distance() - start_dist) < 100:
+            robot.drive(100, 0)
+            log_position()
+            if line_sensor.color() == border_color:
+                hit_border_during_evasion = True
+                break
+            wait(20)
+        robot.stop()
+        
+        if hit_border_during_evasion:
+            return
+            
+        logged_turn(-100)
         if obstacle_sensor.distance() > DISTANCE_THRESHOLD:
             break
-        logged_turn(90)
+        logged_turn(100)
+        
     logged_straight(100)
-    logged_turn(90)
+    logged_turn(100)
 
 def run_coverage():
     # Find corner first without logging
@@ -89,8 +103,8 @@ def run_coverage():
                 wait(20)
         robot.stop()
         
-        # Turn to perform side-shift step
-        logged_turn(90 * direction)
+        # Turn to perform side-shift step (changed angle to 100)
+        logged_turn(100 * direction)
         
         # Shift step over to next grid lane
         start_dist = robot.distance()
@@ -107,11 +121,20 @@ def run_coverage():
         robot.stop()        
         
         if hit_border:
-            logged_turn(90 * direction) 
-            logged_straight(300, speed=150) # Cleanly logs the final drive home       
+            # Turn toward home stretch (changed angle to 100)
+            logged_turn(100 * direction) 
+            
+            # Integrated your custom last loop while keeping it plottable
+            while line_sensor.color() != border_color:
+                robot.drive(150, 0)
+                log_position()
+                wait(20)
+                
+            robot.stop()
             task_finished = True     
         else:    
-            logged_turn(90 * direction)
+            # Turn back into the workspace (changed angle to 100)
+            logged_turn(100 * direction)
             direction *= -1
             
     ev3.speaker.beep()
