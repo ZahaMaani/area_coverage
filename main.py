@@ -21,25 +21,25 @@ def find_corner():
         robot.drive(150, 0)
         if line_sensor.color() == border_color: 
             robot.stop()
-            robot.turn(-93)
+            robot.turn(-100)
             i += 1
 
 def avoid_obstacle():
     robot.stop()
-    robot.turn(93)
+    robot.turn(100)
     robot.straight(100)
-    robot.turn(-93)
+    robot.turn(-100)
     while True:
         robot.straight(100)
         if line_sensor.color() == border_color:
             robot.stop()
             return
-        robot.turn(-93)
+        robot.turn(-100)
         if obstacle_sensor.distance() > DISTANCE_THRESHOLD:
             break
-        robot.turn(93)
+        robot.turn(100)
     robot.straight(100)
-    robot.turn(93)
+    robot.turn(100)
 
 def run_coverage():
     find_corner()
@@ -57,7 +57,7 @@ def run_coverage():
                 robot.drive(150, 0)        
         robot.stop()
         
-        robot.turn(93 * direction)
+        robot.turn(100 * direction)
         
         distance_covered = 0
         hit_border = False
@@ -73,9 +73,9 @@ def run_coverage():
         robot.stop()        
         
         if hit_border:
-            robot.turn(93 * direction) 
-            robot.drive(150, 0)        
-            wait(2000)                 
+            robot.turn(100 * direction) 
+            while line_sensor.color() != border_color:
+                robot.drive(150, 0)        
             robot.stop()
             task_finished = True     
         
