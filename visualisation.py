@@ -47,7 +47,6 @@ def find_corner():
         robot.drive(150, 0)
         if line_sensor.color() == border_color: 
             robot.stop()
-            # Standard turn is fine here as we don't log setup phase
             robot.turn(-100) 
             i += 1
 
@@ -103,7 +102,6 @@ def run_coverage():
                 wait(20)
         robot.stop()
         
-        # Turn to perform side-shift step (changed angle to 100)
         logged_turn(100 * direction)
         
         # Shift step over to next grid lane
@@ -121,10 +119,8 @@ def run_coverage():
         robot.stop()        
         
         if hit_border:
-            # Turn toward home stretch (changed angle to 100)
             logged_turn(100 * direction) 
             
-            # Integrated your custom last loop while keeping it plottable
             while line_sensor.color() != border_color:
                 robot.drive(150, 0)
                 log_position()
