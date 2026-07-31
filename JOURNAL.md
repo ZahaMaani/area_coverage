@@ -1,4 +1,4 @@
-# Developer Journal - [Coverage Project]
+
 
 ## Developer Journal - [Coverage Project]
 
