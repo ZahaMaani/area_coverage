@@ -1,19 +1,21 @@
 # Developer Journal - [Coverage Project]
 
 ## [2026-07-02] - Team Session
-- We made the first commit to the code, where the robot now goes to the corner and starts the coverage in L shapes across the room.
+Initialized the codebase repository and implemented the primary L-shaped grid coverage algorithm, directing the robot to navigate from the corner.
 
-Next Step: have the robot detect that it has covered the enitre room and stop.
+Next Step: Implement a termination condition to detect complete room coverage and halt execution.
 
 ---
 ## [2026-07-04] - Team Session
-- Created a new solution for the robot to cover the given area in a spiral.
-- Compared the two methods to decide on which we will develop obstacle avoidance.
-- For the L shape coverage, basic obstacle avoidance is done. 
+Developed an alternative spiral-based area coverage algorithm.
 
-Next step: make sure that the robot does not get outside of the border while it is avoiding the obstacle. 
+Evaluated and compared L-shape and spiral methods to select the optimal framework for integrating obstacle avoidance.
 
+Integrated basic obstacle avoidance mechanisms for the L-shaped coverage strategy.
+
+Next Step: Enforce boundary constraints to ensure the robot remains within the designated area during obstacle avoidance maneuvers.
 ---
 ## [2026-07-11] - Team Session
-- Tackled obstacle avoidance problem
-- Added plotting of the covered area using matplotlib
+Advanced the implementation and refinement of the obstacle avoidance module.
+
+Integrated data visualization features using matplotlib to dynamically plot and track the covered area.
